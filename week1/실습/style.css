@@ -1,0 +1,37 @@
+* > {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+h1{
+    font-size: 50px;
+    padding: 5px 30px;
+    transition: ease 0.5s;
+}
+
+h1:hover{
+    background-color: rgba(163, 116, 116, 0.9);
+    color: white;
+
+
+}
+
+.wrap{
+    border-radius: 20px;
+    border: rgba(163, 116, 116, 0.9) solid 2px;
+    padding: 5px 100px;
+
+}
+
+legend{
+    padding: 1rem;
+    align-items: center;
+}
