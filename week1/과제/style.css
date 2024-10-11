@@ -70,7 +70,7 @@ header .right-icon {
 .button-wrap {
     position: absolute;
     right: 30px;
-    bottom: 130px;
+    bottom: 14vh;
     display: flex;
     flex-direction: column;
     gap: 10px;
