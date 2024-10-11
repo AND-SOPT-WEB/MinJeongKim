@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -55,13 +56,9 @@ header .right-icon {
 }
 
 /* 메인 */
-main{
-
-
-}
 
 .background {
-    position: relative;
+    /*position: relative;*/
     background-image: url("../../asset/img/sopt-web.png");
     background-size: cover;
     background-position: center;
@@ -73,7 +70,7 @@ main{
 .button-wrap {
     position: absolute;
     right: 30px;
-    bottom: 50px;
+    bottom: 130px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -91,25 +88,7 @@ main{
     color: #3889f2;
 }
 
-.button-wrap a button:last-of-type {
-    background-color: rgba(0, 0, 0, 0.42);
-    color: white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    font-size: 1em;
-    font-weight: normal;
-
-    padding: 10px 16px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    width: min-content;
-    white-space: nowrap;
-}
-
-.button-wrap .button-link {
+.button-link {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,21 +97,18 @@ main{
     color: white;
     font-size: 1em;
     padding: 8px 16px;
-    border: none;
     border-radius: 10px;
     text-decoration: none;
-    cursor: pointer;
-    width: min-content;
-    white-space: nowrap;
+    transition: 0.3s;
 }
 
 .button-link:hover {
-    background-color: rgba(0, 0, 0, 0.76);
+    background-color: rgba(0, 0, 0, 0.64);
+    color: white;
 }
 
 
 /* 무한 배너 */
-
 .body-banner {
     padding: 40px;
     & > h1 {
@@ -162,12 +138,10 @@ main{
     width: 250px;
     height: 250px;
     transition: 0.3s;
-    z-index: 1;
 }
 
 .banner-track img:hover {
     transform: scale(1.2);
-    z-index: 3;
 }
 
 @keyframes scroll {
@@ -178,3 +152,75 @@ main{
         transform: translateX(-100%);
     }
 }
+
+
+/* 스크롤 뷰 */
+.body-Europe{
+    padding: 40px;
+    & > h1 {
+        color: white;
+        margin-bottom: 20px;
+    }
+}
+
+.body-Europe .Europe-wrap {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0;
+
+}
+
+.Europe-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.image-slider {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 10px;
+    scroll-behavior: smooth;
+}
+
+.image-slider::-webkit-scrollbar  {
+    display: none;
+}
+
+.image-slider img {
+    width: 250px;
+    border-radius: 10px;
+}
+
+a.prev-btn, a.next-btn {
+    position: absolute;
+    top: 50%;
+    height: 100%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #a8a8a8;
+    font-size: 2em;
+    padding: 14rem 10px;
+    cursor: pointer;
+    z-index: 1;
+    text-decoration: none;
+
+}
+
+a.prev-btn {
+    left: 0;
+
+}
+
+a.next-btn {
+    right: 0;
+}
+
