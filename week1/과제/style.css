@@ -130,7 +130,9 @@ header .right-icon {
 
 .banner-track {
     display: flex;
-    animation: scroll 30s linear infinite;
+    animation: scroll 20s linear infinite;
+    width: max-content; /* 트랙 너비가 이미지들의 총 너비로 설정되도록 */
+
 }
 
 
@@ -152,7 +154,6 @@ header .right-icon {
         transform: translateX(-100%);
     }
 }
-
 
 /* 스크롤 뷰 */
 .body-Europe{
