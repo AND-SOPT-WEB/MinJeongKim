@@ -46,7 +46,6 @@ const filterMembers = () => {
   const membersData = JSON.parse(localStorage.getItem("membersData"));
 
   const filteredData = membersData.filter(member => {
-    console.log(member.firstWeekGroup.toString(), firstWeekGroupFilter);
     return (
       (!nameFilter || member.name.includes(nameFilter)) &&
       (!englishNameFilter || member.englishName.toLowerCase().includes(englishNameFilter)) &&
@@ -57,9 +56,6 @@ const filterMembers = () => {
       (!secondWeekGroupFilter || member.secondWeekGroup.toString() === secondWeekGroupFilter)
     );
   });
-
-  console.log(filteredData)
-
   displayMembers(filteredData);
 };
 
