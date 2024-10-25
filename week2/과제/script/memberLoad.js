@@ -1,9 +1,5 @@
 
-/*
-  @description
-    - membersData를 localStorage에 저장
-    - membersData를 가져와서 테이블에 출력
- */
+
 
 import {members} from "../config/members.js";
 
@@ -11,16 +7,18 @@ if (!localStorage.getItem("membersData")) {
   localStorage.setItem("membersData", JSON.stringify(members));
 }
 
-
-const displayMembers = () => {
-  const membersData = JSON.parse(localStorage.getItem("membersData"));
+/*
+  @description
+    - membersData를 가져와서 테이블에 출력
+ */
+const displayMembers = (membersData) => {
   const tbody = document.querySelector("table tbody");
   tbody.innerHTML = "";
 
   membersData.forEach((member) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${member.id}</td>
+      <td><input type="checkbox" class="member-checkbox"></td>
       <td>${member.name}</td>
       <td>${member.englishName}</td>
       <td><a href="https://github.com/${member.github}">${member.github}</a></td>
@@ -34,4 +32,44 @@ const displayMembers = () => {
 
 }
 
-document.addEventListener("DOMContentLoaded", displayMembers);
+/*
+  @description
+    - 입력된 값에 따라 필터링된 결과를 테이블에 출력
+ */
+const filterMembers = () => {
+  const nameFilter = document.getElementById("name").value;
+  const englishNameFilter = document.getElementById("english-name").value.toLowerCase();
+  const githubFilter = document.getElementById("github").value.toLowerCase();
+  const genderFilter = document.getElementById("gender").value;
+  const roleFilter = document.getElementById("role").value;
+  const firstWeekGroupFilter = document.getElementById("firstWeekGroup").value;
+  const secondWeekGroupFilter = document.getElementById("secondWeekGroup").value;
+
+
+  const membersData = JSON.parse(localStorage.getItem("membersData"));
+
+  const filteredData = membersData.filter(member => {
+    console.log(member.firstWeekGroup.toString(), firstWeekGroupFilter);
+    return (
+      (!nameFilter || member.name.includes(nameFilter)) &&
+      (!englishNameFilter || member.englishName.toLowerCase().includes(englishNameFilter)) &&
+      (!githubFilter || member.github.includes(githubFilter)) &&
+      ( genderFilter === "all" || member.gender === genderFilter) &&
+      ( roleFilter ==="all" || member.role === roleFilter) &&
+      (!firstWeekGroupFilter || member.firstWeekGroup.toString() === firstWeekGroupFilter) &&
+      (!secondWeekGroupFilter || member.secondWeekGroup.toString() === secondWeekGroupFilter)
+    );
+  });
+
+  console.log(filteredData)
+
+  displayMembers(filteredData);
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  displayMembers(JSON.parse(localStorage.getItem("membersData")));
+});
+
+document.querySelector(".search-button").addEventListener("click", (e) => {
+  filterMembers();
+});
