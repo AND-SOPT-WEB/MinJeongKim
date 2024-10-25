@@ -23,8 +23,8 @@ const displayMembers = () => {
       <td>${member.id}</td>
       <td>${member.name}</td>
       <td>${member.englishName}</td>
-      <td>${member.github}</td>
-      <td>${member.gender}</td>
+      <td><a href="https://github.com/${member.github}">${member.github}</a></td>
+      <td>${member.gender === "male" ? "남성": "여성"}</td>
       <td>${member.role}</td>
       <td>${member.firstWeekGroup}</td>
       <td>${member.secondWeekGroup}</td>
