@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+}
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    background-color: #f4c6c6;
+    height: 2.5rem;
+
+    & > div{
+        display: inline-block;
+    }
+}
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+.title {
+    font-size: 20px;
+    font-weight: bold;
+}
+.user-info {
+    font-size: 16px;
+}
+
+
+/* 메인 영역 */
+main {
+    max-width: 60rem;
+}
+
+
+/* 필터링 영역 */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+
+}
+.filter{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.form-group label {
+    width: 150px;
+    text-align: right;
+    margin-right: 10px;
+}
+.form-group input, .form-group select {
+    padding: 5px;
+    width: 200px;
+}
+.buttons {
+    margin-top: 20px;
+}
+.buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+}
