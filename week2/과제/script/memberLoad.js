@@ -1,6 +1,3 @@
-
-
-
 import {members} from "../config/members.js";
 
 if (!localStorage.getItem("membersData")) {
@@ -66,6 +63,23 @@ const filterMembers = () => {
   displayMembers(filteredData);
 };
 
+/*
+  @description
+    - 필터링된 결과 초기화, 전체 데이터 테이블 출력
+ */
+const resetFilter = () => {
+  document.getElementById("name").value = "";
+  document.getElementById("english-name").value = "";
+  document.getElementById("github").value = "";
+  document.getElementById("gender").value = "";
+  document.getElementById("role").value = "";
+  document.getElementById("firstWeekGroup").value = "";
+  document.getElementById("secondWeekGroup").value = "";
+
+  displayMembers(JSON.parse(localStorage.getItem("membersData")));
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   displayMembers(JSON.parse(localStorage.getItem("membersData")));
 });
@@ -73,3 +87,5 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelector(".search-button").addEventListener("click", (e) => {
   filterMembers();
 });
+
+document.querySelector(".reset-button").addEventListener("click", resetFilter);

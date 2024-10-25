@@ -12,6 +12,7 @@ body {
     border: none;
     font-size: 0.9rem;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 /* 헤더 */
