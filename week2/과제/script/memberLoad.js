@@ -137,14 +137,20 @@ const onModalClose = () => {
 }
 
 const onModalAddItem = () => {
-  const name = document.getElementById("add_name")?.value;
-  const englishName = document.getElementById("add_english-name")?.value;
-  const github = document.getElementById("add_github")?.value;
-  const gender = document.getElementById("add_gender")?.value;
-  const role = document.getElementById("add_role")?.value;
-  const firstWeekGroup = document.getElementById("add_firstWeekGroup")?.value;
-  const secondWeekGroup = document.getElementById("add_secondWeekGroup")?.value;
+  const name = document.getElementById("add_name").value;
+  const englishName = document.getElementById("add_english-name").value;
+  const github = document.getElementById("add_github").value;
+  const gender = document.getElementById("add_gender").value;
+  const role = document.getElementById("add_role").value;
+  const firstWeekGroup = document.getElementById("add_firstWeekGroup").value;
+  const secondWeekGroup = document.getElementById("add_secondWeekGroup").value;
   const membersData = JSON.parse(localStorage.getItem("membersData")) || [];
+
+  if (!name || !englishName || !github || !gender || !role || !firstWeekGroup || !secondWeekGroup) {
+    alert("모든 항목을 입력해주세요.");
+    return;
+  }
+
   membersData.push({
     name,
     englishName,
