@@ -94,10 +94,15 @@ document.querySelector(".reset-button").addEventListener("click", resetFilter);
     - 전체 선택 체크박스
  */
 
-// document.getElementById(".selectAll").addEventListener("click", (e) => {
-//
-//
-// });
+const selectAll = document.getElementById("selectAll");
+const checkAll = (e) => {
+  const memberCheckboxes = document.querySelectorAll(".member-checkbox");
+  memberCheckboxes.forEach((checkbox) => {
+    checkbox.checked = e.target.checked;
+  });
+}
+
+selectAll.addEventListener("click", checkAll);
 
 
 /*
