@@ -139,3 +139,34 @@ th, td {
     align-content: center;
     padding: 0.5rem;
 }
+
+/* 모달 */
+.modal {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content{
+    position: relative;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-body{
+    .item{
+        margin: 1.5rem 0;
+    }
+}
