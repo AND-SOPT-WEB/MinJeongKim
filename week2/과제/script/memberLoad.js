@@ -94,10 +94,10 @@ document.querySelector(".reset-button").addEventListener("click", resetFilter);
     - 전체 선택 체크박스
  */
 
-document.getElementById(".selectAll").addEventListener("click", (e) => {
-
-
-});
+// document.getElementById(".selectAll").addEventListener("click", (e) => {
+//
+//
+// });
 
 
 /*
@@ -117,3 +117,48 @@ const deleteMembers = () => {
 }
 
 document.querySelector(".delete-button").addEventListener("click", deleteMembers);
+
+/*
+  @description
+    - 모달 관련
+ */
+
+const modal = document.querySelector(".modal");
+const openModal = document.querySelector(".open-modal");
+const closeModal = document.querySelector(".close-button");
+const addSubmit = document.querySelector(".add-submit");
+
+const onModalOpen = () => {
+  modal.style.display = "block";
+}
+
+const onModalClose = () => {
+  modal.style.display = "none";
+}
+
+const onModalAddItem = () => {
+  const name = document.getElementById("add_name")?.value;
+  const englishName = document.getElementById("add_english-name")?.value;
+  const github = document.getElementById("add_github")?.value;
+  const gender = document.getElementById("add_gender")?.value;
+  const role = document.getElementById("add_role")?.value;
+  const firstWeekGroup = document.getElementById("add_firstWeekGroup")?.value;
+  const secondWeekGroup = document.getElementById("add_secondWeekGroup")?.value;
+  const membersData = JSON.parse(localStorage.getItem("membersData")) || [];
+  membersData.push({
+    name,
+    englishName,
+    github,
+    gender,
+    role,
+    firstWeekGroup,
+    secondWeekGroup,
+  });
+  localStorage.setItem("membersData", JSON.stringify(membersData));
+  displayMembers(membersData);
+  onModalClose();
+}
+
+openModal.addEventListener("click", onModalOpen);
+closeModal.addEventListener("click", onModalClose);
+addSubmit.addEventListener("click", onModalAddItem);
