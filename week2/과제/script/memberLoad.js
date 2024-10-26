@@ -118,6 +118,7 @@ const deleteMembers = () => {
 
 document.querySelector(".delete-button").addEventListener("click", deleteMembers);
 
+
 /*
   @description
     - 모달 관련
@@ -168,3 +169,9 @@ const onModalAddItem = () => {
 openModal.addEventListener("click", onModalOpen);
 closeModal.addEventListener("click", onModalClose);
 addSubmit.addEventListener("click", onModalAddItem);
+// 백드롭 클릭 시 모달 닫기
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    onModalClose();
+  }
+});
