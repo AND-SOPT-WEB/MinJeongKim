@@ -29,6 +29,11 @@ const displayMembers = (membersData) => {
 
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  displayMembers(JSON.parse(localStorage.getItem("membersData")));
+});
+
+
 /*
   @description
     - 입력된 값에 따라 필터링된 결과를 테이블에 출력
@@ -59,6 +64,12 @@ const filterMembers = () => {
   displayMembers(filteredData);
 };
 
+document.querySelector(".search-button").addEventListener("click", (e) => {
+  filterMembers();
+});
+
+
+
 /*
   @description
     - 필터링된 결과 초기화, 전체 데이터 테이블 출력
@@ -75,13 +86,34 @@ const resetFilter = () => {
   displayMembers(JSON.parse(localStorage.getItem("membersData")));
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  displayMembers(JSON.parse(localStorage.getItem("membersData")));
-});
-
-document.querySelector(".search-button").addEventListener("click", (e) => {
-  filterMembers();
-});
-
 document.querySelector(".reset-button").addEventListener("click", resetFilter);
+
+
+/*
+  @description
+    - 전체 선택 체크박스
+ */
+
+document.getElementById(".selectAll").addEventListener("click", (e) => {
+
+
+});
+
+
+/*
+  @description
+    - 체크된 멤버 삭제
+ */
+const deleteMembers = () => {
+  const membersData = JSON.parse(localStorage.getItem("membersData"));
+  const checkedMembers = document.querySelectorAll(".member-checkbox:checked");
+  console.log(checkedMembers);
+  checkedMembers.forEach((member) => {
+    const index = member.parentElement.parentElement.rowIndex - 1;
+    membersData.splice(index, 1);
+  })
+  localStorage.setItem("membersData", JSON.stringify(membersData));
+  displayMembers(membersData);
+}
+
+document.querySelector(".delete-button").addEventListener("click", deleteMembers);
