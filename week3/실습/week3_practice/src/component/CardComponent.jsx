@@ -24,8 +24,12 @@ const Button = styled.button`
     border-radius: 5px;
     padding: 0.4rem 0.8rem;
     cursor: pointer;
-    &:hover{
-        background-color: #6d3737;
+
+    &:active{
+        outline: none;
+    }
+    &:focus{
+        outline: none;
     }
 `;
 
