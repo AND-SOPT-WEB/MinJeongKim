@@ -13,105 +13,132 @@
   <title>Document</title>
 </head>
 <body>
-  <header>
-    <i class="menu-icon fa fa-bars"></i>
-    <div class="title">회원 관리 페이지</div>
-    <div class="user-info">and sopt YB 김민정</div>
-  </header>
-  <main>
-    <div class="filter border-radius">
-      <div class="form-group">
-        <label for="name">이름</label>
-        <input type="text" id="name" placeholder="이름을 입력해주세요">
-      </div>
-
-      <div class="form-group">
-        <label for="english-name">영문이름</label>
-        <input type="text" id="english-name" placeholder="영문이름을 입력하세요">
-      </div>
-
-      <div class="form-group">
-        <label for="github">github</label>
-        <input type="text" id="github" placeholder="github id 를 입력해주세요">
-      </div>
-
-      <div class="form-group">
-        <label for="gender">성별</label>
-        <select id="gender">
-          <option value="all">성별선택</option>
-          <option value="male">남성</option>
-          <option value="female">여성</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="role">역할</label>
-        <select id="role">
-          <option value="all">OB/YB 선택</option>
-          <option value="OB">OB</option>
-          <option value="YB">YB</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="firstWeekGroup">1주차 금잔디조</label>
-        <input type="number" id="firstWeekGroup" placeholder="1주차 금잔디 조를 입력하세요(1~10)" min="1" max="10">
-      </div>
-      <div class="form-group">
-        <label for="secondWeekGroup">2주차 금잔디조</label>
-        <input type="number" id="secondWeekGroup" placeholder="2주차 금잔디 조를 입력하세요(1~10)" min="1" max="10">
-      </div>
-
-      <div class="form-group" >
-        <button type="reset" class="button-form reset-button">초기화</button>
-      </div>
-      <div class="form-group" >
-        <button type="submit" class="button-form search-button">검색</button>
-      </div>
-
+<header>
+  <i class="menu-icon fa fa-bars"></i>
+  <div class="title">회원 관리 페이지</div>
+  <div class="user-info">and sopt YB 김민정</div>
+</header>
+<main>
+  <div class="filter border-radius">
+    <div class="form-group">
+      <label for="name">이름</label>
+      <input type="text" id="name" placeholder="이름을 입력해주세요">
     </div>
-    <div class="add-button">
-      <button class="button-form delete-button">선택삭제</button>
-      <button class="button-form">추가</button>
+
+    <div class="form-group">
+      <label for="english-name">영문이름</label>
+      <input type="text" id="english-name" placeholder="영문이름을 입력하세요">
     </div>
-    <table>
-      <thead>
-        <tr>
-          <td><input type="checkbox" id="selectAll"></td>
-          <th>이름</th>
-          <th>영문이름</th>
-          <th>GitHub</th>
-          <th>성별</th>
-          <th>역할</th>
-          <th>1주차 금잔디조</th>
-          <th>2주차 금잔디조</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-    <div class="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1>새 멤버 추가</h1>
-          <i class="fas fa-times close-button"></i>
+
+    <div class="form-group">
+      <label for="github">github</label>
+      <input type="text" id="github" placeholder="github id 를 입력해주세요">
+    </div>
+
+    <div class="form-group">
+      <label for="gender">성별</label>
+      <select id="gender">
+        <option value="all">성별선택</option>
+        <option value="male">남성</option>
+        <option value="female">여성</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="role">역할</label>
+      <select id="role">
+        <option value="all">OB/YB 선택</option>
+        <option value="OB">OB</option>
+        <option value="YB">YB</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="firstWeekGroup">1주차 금잔디조</label>
+      <input type="number" id="firstWeekGroup" placeholder="1주차 금잔디 조를 입력하세요(1~10)" min="1" max="10">
+    </div>
+    <div class="form-group">
+      <label for="secondWeekGroup">2주차 금잔디조</label>
+      <input type="number" id="secondWeekGroup" placeholder="2주차 금잔디 조를 입력하세요(1~10)" min="1" max="10">
+    </div>
+
+    <div class="form-group" >
+      <button type="reset" class="button-form reset-button">초기화</button>
+    </div>
+    <div class="form-group" >
+      <button type="submit" class="button-form search-button">검색</button>
+    </div>
+
+  </div>
+  <div class="add-button">
+    <button class="button-form delete-button">선택삭제</button>
+    <button class="button-form">추가</button>
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <td><input type="checkbox" id="selectAll"></td>
+      <th>이름</th>
+      <th>영문이름</th>
+      <th>GitHub</th>
+      <th>성별</th>
+      <th>역할</th>
+      <th>1주차 금잔디조</th>
+      <th>2주차 금잔디조</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <div class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>새 멤버 추가</h1>
+        <i class="fas fa-times close-button"></i>
+      </div>
+      <div class="modal-body">
+        <div class="item">
+          <label for="add_name">이름</label>
+          <input type="text" id="add_name" placeholder="이름을 입력해주세요">
         </div>
-        <div class="modal-body">
-          <div class="item">
-            <label for="name">이름</label>
-            <input type="text" id="name" placeholder="이름을 입력해주세요">
-          </div>
-          <div class="item">
-            <label for="name">영문 이름</label>
-            <input type="text" id="name" placeholder="이름을 입력해주세요">
-          </div>
-          <div class="item">
-            <label for="name">GITHUB ID</label>
-            <input type="text" id="name" placeholder="이름을 입력해주세요">
-          </div>
+        <div class="item">
+          <label for="add_english-name">영문 이름</label>
+          <input type="text" id="add_english-name" placeholder="이름을 입력해주세요">
         </div>
+        <div class="item">
+          <label for="add_github">GITHUB ID</label>
+          <input type="text" id="add_github" placeholder="이름을 입력해주세요">
+        </div>
+        <div class="item">
+          <label for="add_gender">성별</label>
+          <select id="add_gender">
+            <option value="all">성별선택</option>
+            <option value="male">남성</option>
+            <option value="female">여성</option>
+          </select>
+        </div>
+        <div class="item">
+          <label for="add_role">역할</label>
+          <select id="add_role">
+            <option value="all">OB/YB 선택</option>
+            <option value="OB">OB</option>
+            <option value="YB">YB</option>
+          </select>
+        </div>
+        <div class="item">
+          <label for="add_firstWeekGroup">1주차 금잔디조</label>
+          <input type="text" id="add_firstWeekGroup" placeholder="이름을 입력해주세요">
+        </div>
+        <div class="item">
+          <label for="add_secondWeekGroup">2주차 금잔디조</label>
+          <input type="text" id="add_secondWeekGroup" placeholder="이름을 입력해주세요">
+        </div>
+        <button class="button-form add-button">추가</button>
       </div>
+
+
     </div>
-  </main>
+  </div>
+</main>
 </body>
 </html>
