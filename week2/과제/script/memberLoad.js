@@ -15,7 +15,7 @@ const displayMembers = (membersData) => {
   membersData.forEach((member) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td><input type="checkbox" class="member-checkbox"></td>
+      <td><input type="checkbox" class="member-checkbox" data-id=${member.id}></td>
       <td>${member.name}</td>
       <td>${member.englishName}</td>
       <td><a href="https://github.com/${member.github}">${member.github}</a></td>
@@ -38,6 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
   @description
     - 입력된 값에 따라 필터링된 결과를 테이블에 출력
  */
+
+const searchButton = document.querySelector(".search-button");
+
 const filterMembers = () => {
   const nameFilter = document.getElementById("name").value;
   const englishNameFilter = document.getElementById("english-name").value.toLowerCase();
@@ -46,7 +49,6 @@ const filterMembers = () => {
   const roleFilter = document.getElementById("role").value;
   const firstWeekGroupFilter = document.getElementById("firstWeekGroup").value;
   const secondWeekGroupFilter = document.getElementById("secondWeekGroup").value;
-
 
   const membersData = JSON.parse(localStorage.getItem("membersData"));
 
@@ -64,9 +66,7 @@ const filterMembers = () => {
   displayMembers(filteredData);
 };
 
-document.querySelector(".search-button").addEventListener("click", (e) => {
-  filterMembers();
-});
+searchButton.addEventListener("click", filterMembers);
 
 
 
@@ -74,6 +74,9 @@ document.querySelector(".search-button").addEventListener("click", (e) => {
   @description
     - 필터링된 결과 초기화, 전체 데이터 테이블 출력
  */
+
+const resetButton = document.querySelector(".reset-button");
+
 const resetFilter = () => {
   document.getElementById("name").value = "";
   document.getElementById("english-name").value = "";
@@ -86,7 +89,7 @@ const resetFilter = () => {
   displayMembers(JSON.parse(localStorage.getItem("membersData")));
 }
 
-document.querySelector(".reset-button").addEventListener("click", resetFilter);
+resetButton.addEventListener("click", resetFilter);
 
 
 /*
@@ -95,6 +98,7 @@ document.querySelector(".reset-button").addEventListener("click", resetFilter);
  */
 
 const selectAll = document.getElementById("selectAll");
+
 const checkAll = (e) => {
   const memberCheckboxes = document.querySelectorAll(".member-checkbox");
   memberCheckboxes.forEach((checkbox) => {
@@ -109,19 +113,21 @@ selectAll.addEventListener("click", checkAll);
   @description
     - 체크된 멤버 삭제
  */
+
+const deleteButton = document.querySelector(".delete-button");
+
 const deleteMembers = () => {
-  const membersData = JSON.parse(localStorage.getItem("membersData"));
+  let membersData = JSON.parse(localStorage.getItem("membersData"));
   const checkedMembers = document.querySelectorAll(".member-checkbox:checked");
-  console.log(checkedMembers);
-  checkedMembers.forEach((member) => {
-    const index = member.parentElement.parentElement.rowIndex - 1;
-    membersData.splice(index, 1);
-  })
+  const deleteMemId = Array.from(checkedMembers).map((member) => {
+    return member.dataset.id
+  });
+  membersData = membersData.filter(member => !deleteMemId.includes(member.id.toString()));
   localStorage.setItem("membersData", JSON.stringify(membersData));
   displayMembers(membersData);
 }
 
-document.querySelector(".delete-button").addEventListener("click", deleteMembers);
+deleteButton.addEventListener("click", deleteMembers);
 
 
 /*
@@ -176,7 +182,5 @@ closeModal.addEventListener("click", onModalClose);
 addSubmit.addEventListener("click", onModalAddItem);
 // 백드롭 클릭 시 모달 닫기
 modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    onModalClose();
-  }
+  if (e.target === modal) onModalClose();
 });
