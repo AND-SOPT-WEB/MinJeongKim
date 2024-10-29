@@ -17,8 +17,11 @@ body {
 
 /* 헤더 */
 header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
     align-items: center;
+
     padding: 5px 20px;
     background: rgba(156, 111, 111, 0.32);
     height: 4rem;
@@ -30,18 +33,16 @@ header {
 .menu-icon {
     font-size: 24px;
     cursor: pointer;
-    flex-grow: 2.4;
+    justify-self: start;
 
 }
 .title {
     font-size: 1.5rem;
     font-weight: bold;
-    flex-grow: 2;
-
 }
 .user-info {
     font-size: 16px;
-    flex-grow: 0;
+    justify-self: end;
 
 }
 
