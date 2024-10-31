@@ -17,7 +17,7 @@ const Title = styled.h2`
   color: ${(props) => props.theme.colors.bright};
 `;
 
-const ButtonGroup = styled.div`
+const HeaderGroup = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -46,35 +46,33 @@ const LevelSelect = styled.select`
   border-radius: 5px;
 `;
 
-const Header = ({ menu = "game" }) => {
-  const [selectedMenu, setSelectedMenu] = useState(menu);
+const Timer = styled.div`
+  margin-left: 1rem;
+  width: 3rem;
+  font-size: 1.5rem;
+  color: ${(props) => props.theme.colors.bright};
+`;
 
-  const handleMenuClick = (menu) => {
-    setSelectedMenu(menu);
-  };
-
+const Header = ({ menu = "game", onChange, time = 0 }) => {
   return (
     <HeaderWrap>
-      <ButtonGroup>
+      <HeaderGroup>
         <Title>1 to 50</Title>
-        <Button
-          active={selectedMenu === "game"}
-          onClick={() => handleMenuClick("game")}
-        >
+        <Button active={menu === "game"} onClick={() => onChange("game")}>
           게임
         </Button>
-        <Button
-          active={selectedMenu === "ranking"}
-          onClick={() => handleMenuClick("ranking")}
-        >
+        <Button active={menu === "ranking"} onClick={() => onChange("ranking")}>
           랭킹
         </Button>
-      </ButtonGroup>
-      <LevelSelect>
-        <option value="easy">Level 1</option>
-        <option value="normal">Level 2</option>
-        <option value="hard">Level 3</option>
-      </LevelSelect>
+      </HeaderGroup>
+      <HeaderGroup>
+        <LevelSelect>
+          <option value="easy">Level 1</option>
+          <option value="normal">Level 2</option>
+          <option value="hard">Level 3</option>
+        </LevelSelect>
+        <Timer>{time}</Timer>
+      </HeaderGroup>
     </HeaderWrap>
   );
 };
