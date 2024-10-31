@@ -71,10 +71,20 @@ const Ranking = () => {
   const [rankings, setRankings] = useState([]);
 
   /**
-   * @description 랭킹 불러오기
+   * @description 랭킹 불러오고, 정렬
    */
   useEffect(() => {
     const RankingData = JSON.parse(localStorage.getItem("ranking")) || [];
+
+    RankingData.sort((a, b) => {
+      // Level 내림차순 정렬
+      if (a.level !== b.level) {
+        return b.level.localeCompare(a.level);
+      }
+      // time 오름차순으로 정렬
+      return parseFloat(a.time) - parseFloat(b.time);
+    });
+
     console.log(RankingData);
     setRankings(RankingData);
   }, []);
