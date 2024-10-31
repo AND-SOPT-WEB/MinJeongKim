@@ -5,7 +5,9 @@ import styled from '@emotion/styled';
 
 const HeaderWrap = styled.div`
   display: flex;
-  justify-content: center;
+    height: 3rem;
+    
+    
 `;
 
 const Button = styled.button`
@@ -35,7 +37,7 @@ const LevelSelect = styled.select`
 const Header = ({ menu="game" }) => {
   return (
     <HeaderWrap>
-      <h1>1 to 50 </h1>
+      <h2>1 to 50 </h2>
       <Button>게임</Button>
       <Button>랭킹</Button>
       <LevelSelect>
