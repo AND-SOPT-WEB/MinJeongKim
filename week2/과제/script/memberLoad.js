@@ -100,13 +100,32 @@ resetButton.addEventListener("click", resetFilter);
 const selectAll = document.getElementById("selectAll");
 
 const checkAll = (e) => {
-  const memberCheckboxes = document.querySelectorAll(".member-checkbox");
+  const memberCheckboxes = document.querySelectorAll(".member-checkbox"); // 동적으로 가져오기
   memberCheckboxes.forEach((checkbox) => {
     checkbox.checked = e.target.checked;
   });
 }
 
+const updateSelectAll = () => {
+  const memberCheckboxes = document.querySelectorAll(".member-checkbox"); // 동적으로 가져오기
+  // noteList 를 배열로 변환, every 로 배열의 모든 요소가 true일 때만 true 반환
+  const allChecked = Array.from(memberCheckboxes).every((checkbox) => checkbox.checked);
+  const anyChecked = Array.from(memberCheckboxes).some((checkbox) => checkbox.checked);
+
+  // 모든 체크박스가 체크되면 전체 선택 활성화, 모두 체크 해제되면 비활성화
+  selectAll.checked = allChecked;
+  // 일부만 체크된 경우 중간 상태
+  selectAll.indeterminate = !allChecked && anyChecked;
+
+}
+
+
 selectAll.addEventListener("click", checkAll);
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("member-checkbox")) {
+    updateSelectAll();
+  }
+});
 
 
 /*
