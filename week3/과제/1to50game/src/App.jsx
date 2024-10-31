@@ -1,15 +1,14 @@
 import "./App.css";
 import React, { useState } from "react";
-import Header from "./component/Header/Header.jsx";
+import { Header, Ranking, Game } from "./component/index.js";
 
 function App() {
-  // const [menu, setMenu] = useState('game');
+  const [menu, setMenu] = useState("game");
 
   return (
     <>
       <Header />
-      {/*<Game />*/}
-      {/*<Ranking />*/}
+      {menu === "game" ? <Game /> : <Ranking />}
     </>
   );
 }
