@@ -4,8 +4,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 const HeaderWrap = styled.div`
-  display: flex;
+    display: flex;
     height: 3rem;
+    
     
     
 `;
