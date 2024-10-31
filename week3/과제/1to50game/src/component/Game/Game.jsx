@@ -41,18 +41,42 @@ const Placeholder = styled.div`
   height: 5rem;
 `;
 
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+`;
+
+const ModalContent = styled.div`
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  align-content: center;
+  width: 20rem;
+  height: 10rem;
+`;
+
 const levelSet = {
   level1: { size: 3, max: 18 },
   level2: { size: 4, max: 32 },
   level3: { size: 5, max: 50 },
 };
 
-const Game = ({ level = "level1", time, setTimer }) => {
+const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
   const { size, max } = levelSet[level];
   const [firstList, setFirstList] = useState([]);
   const [secondList, setsecondList] = useState([]);
   const [clicked, setClicked] = useState(Array(size * size).fill(false));
   const [nextNumber, setNextNumber] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   /**
    * @description 레벨에 맞는 배열 2개 (앞면,뒷면) 생성
@@ -83,6 +107,7 @@ const Game = ({ level = "level1", time, setTimer }) => {
    */
   const resetGame = () => {
     setArray();
+    setTimer();
     setNextNumber(1);
     setClicked(Array(levelSet[level].size * levelSet[level].size).fill(false));
   };
@@ -110,11 +135,11 @@ const Game = ({ level = "level1", time, setTimer }) => {
       }
       setFirstList(updatedNumlist);
 
+      // 게임 종료
       if (nextNumber === max) {
-        alert("게임 종료!");
-        setTimer(false);
+        setIsModalOpen(true);
         saveRanking();
-        resetGame();
+        setIsTimerRunning(false);
       } else {
         setNextNumber(nextNumber + 1);
       }
@@ -150,6 +175,11 @@ const Game = ({ level = "level1", time, setTimer }) => {
     localStorage.setItem("ranking", JSON.stringify(rankingData));
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    resetGame();
+  };
+
   return (
     <GameWrap>
       <div>다음 숫자 : {nextNumber}</div>
@@ -172,6 +202,17 @@ const Game = ({ level = "level1", time, setTimer }) => {
           ),
         )}
       </GameBody>
+      {isModalOpen &&
+        createPortal(
+          <ModalOverlay onClick={closeModal}>
+            <ModalContent onClick={(e) => e.stopPropagation()}>
+              <h2>게임 종료!</h2>
+              <p>소요 시간: {time.toFixed(2)}초</p>
+              <button onClick={closeModal}>닫기</button>
+            </ModalContent>
+          </ModalOverlay>,
+          document.getElementById("modal-root"),
+        )}
     </GameWrap>
   );
 };

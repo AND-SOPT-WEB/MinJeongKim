@@ -38,10 +38,16 @@ function App() {
         setTimer={setTimer}
       />
       {menu === "game" ? (
-        <Game level={level} time={time} setTimer={setTimer} />
+        <Game
+          level={level}
+          time={time}
+          setTimer={setTimer}
+          setIsTimerRunning={setIsTimerRunning}
+        />
       ) : (
         <Ranking setTimer={setTimer} />
       )}
+      <div id="modal-root"></div>
     </>
   );
 }
