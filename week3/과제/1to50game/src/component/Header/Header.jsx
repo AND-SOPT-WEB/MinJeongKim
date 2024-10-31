@@ -77,14 +77,16 @@ const Header = ({ menu = "game", setMenu, setLevel, time = 0, setTimer }) => {
           랭킹
         </Button>
       </HeaderGroup>
-      <HeaderGroup>
-        <LevelSelect onChange={onChangeLevel}>
-          <option value="level1">Level 1</option>
-          <option value="level2">Level 2</option>
-          <option value="level3">Level 3</option>
-        </LevelSelect>
-        <Timer>{time}</Timer>
-      </HeaderGroup>
+      {menu === "game" && (
+        <HeaderGroup>
+          <LevelSelect onChange={onChangeLevel}>
+            <option value="level1">Level 1</option>
+            <option value="level2">Level 2</option>
+            <option value="level3">Level 3</option>
+          </LevelSelect>
+          <Timer>{time}</Timer>
+        </HeaderGroup>
+      )}
     </HeaderWrap>
   );
 };

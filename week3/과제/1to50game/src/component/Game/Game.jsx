@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
 import styled from "@emotion/styled";
 
 const GameWrap = styled.div`

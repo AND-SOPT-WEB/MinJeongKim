@@ -67,13 +67,14 @@ const TableHeaderCell = styled.th`
   font-weight: bold;
 `;
 
-const Ranking = () => {
+const Ranking = ({ setTimer }) => {
   const [rankings, setRankings] = useState([]);
 
   /**
    * @description 랭킹 불러오고, 정렬
    */
   useEffect(() => {
+    setTimer(false);
     const RankingData = JSON.parse(localStorage.getItem("ranking")) || [];
 
     RankingData.sort((a, b) => {
