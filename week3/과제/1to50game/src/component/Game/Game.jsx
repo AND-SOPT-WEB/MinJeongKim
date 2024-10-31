@@ -27,6 +27,10 @@ const GameButton = styled.button`
   &:hover {
     opacity: 0.9;
   }
+  &:active {
+    opacity: 0.6;
+    transform: scale(0.92);
+  }
 `;
 
 const Placeholder = styled.div`
@@ -41,18 +45,17 @@ const levelSet = {
   level3: { size: 5, max: 50 },
 };
 
-const Game = ({ level = "level1", setMenu, time, setTime }) => {
+const Game = ({ level = "level1", time, setTimer }) => {
+  const { size, max } = levelSet[level];
   const [firstList, setFirstList] = useState([]);
   const [secondList, setsecondList] = useState([]);
-  const [clicked, setClicked] = useState(Array(9).fill(false));
+  const [clicked, setClicked] = useState(Array(size * size).fill(false));
   const [nextNumber, setNextNumber] = useState(1);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   /**
    * @description 레벨에 맞는 배열 2개 (앞면,뒷면) 생성
    */
   const setArray = () => {
-    const { size, max } = levelSet[level];
     const array = Array.from({ length: size * size }, (_, index) => index + 1);
     const arraySecond = Array.from(
       { length: max - size * size },
@@ -74,12 +77,19 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
   }, [level]);
 
   /**
+   * @description 게임 초기화
+   */
+  const resetGame = () => {
+    setArray();
+    setNextNumber(1);
+    setClicked(Array(levelSet[level].size * levelSet[level].size).fill(false));
+  };
+
+  /**
    * @description 버튼 클릭시, 해당 번호와 다음 번호 비교
    * @param index
    */
   const handleClick = (index) => {
-    const { size, max } = levelSet[level];
-
     // 다음 번호가 맞을 경우만 클릭가능
     if (firstList[index] === nextNumber) {
       const newClicked = [...clicked];
@@ -100,7 +110,9 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
 
       if (nextNumber === max) {
         alert("게임 종료!");
-        setTimer(false); // 타이머 종료
+        setTimer(false);
+        saveRanking();
+        resetGame();
       } else {
         setNextNumber(nextNumber + 1);
       }
@@ -135,30 +147,6 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
     rankingData.push({ timestamp: formatDate(), level, time: time.toFixed(2) });
     localStorage.setItem("ranking", JSON.stringify(rankingData));
   };
-
-  /**
-   * @description 타이머 시작/종료
-   * @param state
-   */
-  const setTimer = (state) => {
-    setIsTimerRunning(state);
-    if (!state) {
-      // 타이머 종료 시
-      setTime(0);
-      setMenu("ranking");
-      saveRanking();
-    }
-  };
-
-  useEffect(() => {
-    let timer;
-    if (isTimerRunning) {
-      timer = setInterval(() => {
-        setTime((prevTime) => prevTime + 0.01);
-      }, 10);
-    }
-    return () => clearInterval(timer);
-  }, [isTimerRunning]);
 
   return (
     <GameWrap>

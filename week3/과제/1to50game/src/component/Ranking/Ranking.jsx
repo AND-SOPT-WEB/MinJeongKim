@@ -84,8 +84,6 @@ const Ranking = () => {
       // time 오름차순으로 정렬
       return parseFloat(a.time) - parseFloat(b.time);
     });
-
-    console.log(RankingData);
     setRankings(RankingData);
   }, []);
 

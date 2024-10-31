@@ -53,13 +53,14 @@ const Timer = styled.div`
   color: ${(props) => props.theme.colors.bright};
 `;
 
-const Header = ({ menu = "game", setMenu, setLevel, time = 0 }) => {
+const Header = ({ menu = "game", setMenu, setLevel, time = 0, setTimer }) => {
   const onChangeMenu = (newMenu) => {
     setMenu(newMenu);
   };
 
   const onChangeLevel = (event) => {
     setLevel(event.target.value);
+    setTimer(); // 레벨 바꿀 때도 초기화
   };
 
   return (
