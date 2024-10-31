@@ -58,8 +58,8 @@ const Header = ({ menu = "game", setMenu, setLevel, time = 0 }) => {
     setMenu(newMenu);
   };
 
-  const onChangeLevel = (newLevel) => {
-    setLevel(newLevel);
+  const onChangeLevel = (event) => {
+    setLevel(event.target.value);
   };
 
   return (
@@ -77,16 +77,10 @@ const Header = ({ menu = "game", setMenu, setLevel, time = 0 }) => {
         </Button>
       </HeaderGroup>
       <HeaderGroup>
-        <LevelSelect>
-          <option value="level1" onClick={onChangeLevel}>
-            Level 1
-          </option>
-          <option value="level2" onClick={onChangeLevel}>
-            Level 2
-          </option>
-          <option value="level3" onClick={onChangeLevel}>
-            Level 3
-          </option>
+        <LevelSelect onChange={onChangeLevel}>
+          <option value="level1">Level 1</option>
+          <option value="level2">Level 2</option>
+          <option value="level3">Level 3</option>
         </LevelSelect>
         <Timer>{time}</Timer>
       </HeaderGroup>

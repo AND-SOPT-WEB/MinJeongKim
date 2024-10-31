@@ -9,7 +9,8 @@ const GameWrap = styled.div`
 
 const GameBody = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 0.1fr);
+  grid-template-columns: ${(props) =>
+    `repeat(${levelSet[props.level].size}, 0.1fr)`};
   grid-gap: 1rem;
   align-content: center;
   justify-content: center;
@@ -70,7 +71,7 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
   useEffect(() => {
     setArray();
     setNextNumber(1);
-  }, []);
+  }, [level]);
 
   /**
    * @description 버튼 클릭시, 해당 번호와 다음 번호 비교
@@ -97,7 +98,7 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
       }
       setFirstList(updatedNumlist);
 
-      if (nextNumber === 18) {
+      if (nextNumber === max) {
         alert("게임 종료!");
         setTimer(false); // 타이머 종료
       } else {
@@ -162,7 +163,7 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
   return (
     <GameWrap>
       <div>다음 숫자 : {nextNumber}</div>
-      <GameBody>
+      <GameBody level={level}>
         {firstList.map((num, index) =>
           num === null ? (
             <Placeholder key={index}></Placeholder>
