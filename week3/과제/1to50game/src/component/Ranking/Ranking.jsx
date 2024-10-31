@@ -70,13 +70,20 @@ const TableHeaderCell = styled.th`
 const Ranking = () => {
   const [rankings, setRankings] = useState([]);
 
+  /**
+   * @description 랭킹 불러오기
+   */
   useEffect(() => {
-    const savedRankings = JSON.parse(localStorage.getItem("rankings")) || [];
-    setRankings(savedRankings);
+    const RankingData = JSON.parse(localStorage.getItem("ranking")) || [];
+    console.log(RankingData);
+    setRankings(RankingData);
   }, []);
 
+  /**
+   * @description 랭킹 초기화
+   */
   const handleReset = () => {
-    localStorage.removeItem("rankings");
+    localStorage.removeItem("ranking");
     setRankings([]);
   };
 
@@ -99,7 +106,7 @@ const Ranking = () => {
             <TableRow key={index}>
               <TableCell>{ranking.timestamp}</TableCell>
               <TableCell>{ranking.level}</TableCell>
-              <TableCell>{ranking.playTime}초</TableCell>
+              <TableCell>{ranking.time} 초</TableCell>
             </TableRow>
           ))}
         </tbody>

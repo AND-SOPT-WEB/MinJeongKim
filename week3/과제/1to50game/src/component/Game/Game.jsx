@@ -132,7 +132,7 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
     const ranking = localStorage.getItem("ranking");
     const rankingData = ranking ? JSON.parse(ranking) : [];
 
-    rankingData.push({ timestamp: formatDate(), level, time });
+    rankingData.push({ timestamp: formatDate(), level, time: time.toFixed(2) });
     localStorage.setItem("ranking", JSON.stringify(rankingData));
   };
 
@@ -154,8 +154,8 @@ const Game = ({ level = "level1", setMenu, time, setTime }) => {
     let timer;
     if (isTimerRunning) {
       timer = setInterval(() => {
-        setTime((prevTime) => prevTime + 0.1);
-      }, 100);
+        setTime((prevTime) => prevTime + 0.01);
+      }, 10);
     }
     return () => clearInterval(timer);
   }, [isTimerRunning]);
