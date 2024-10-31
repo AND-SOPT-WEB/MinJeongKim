@@ -34,60 +34,136 @@ const Placeholder = styled.div`
   height: 5rem;
 `;
 
-const Game = ({ startTimer }) => {
-  const [numlist, setNumlist] = useState([]);
+const levelSet = {
+  level1: { size: 3, max: 18 },
+  level2: { size: 4, max: 32 },
+  level3: { size: 5, max: 50 },
+};
+
+const Game = ({ level = "level1", setMenu, time, setTime }) => {
+  const [firstList, setFirstList] = useState([]);
+  const [secondList, setsecondList] = useState([]);
   const [clicked, setClicked] = useState(Array(9).fill(false));
   const [nextNumber, setNextNumber] = useState(1);
-  const [secondSet, setSecondSet] = useState([]);
-  const [is10over, setIs10over] = useState(false);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
-  useEffect(() => {
-    const shuffledNumbers = shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-    const shuffledNumbersSecond = shuffleArray([
-      10, 11, 12, 13, 14, 15, 16, 17, 18,
-    ]);
-    setNumlist(shuffledNumbers);
-    setSecondSet(shuffledNumbersSecond);
-    setNextNumber(1);
-  }, []);
+  /**
+   * @description 레벨에 맞는 배열 2개 (앞면,뒷면) 생성
+   */
+  const setArray = () => {
+    const { size, max } = levelSet[level];
+    const array = Array.from({ length: size * size }, (_, index) => index + 1);
+    const arraySecond = Array.from(
+      { length: max - size * size },
+      (_, index) => index + size * size + 1,
+    );
+    shuffleArray(array);
+    shuffleArray(arraySecond);
+    setFirstList(array);
+    setsecondList(arraySecond);
+  };
 
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
 
+  useEffect(() => {
+    setArray();
+    setNextNumber(1);
+  }, []);
+
+  /**
+   * @description 버튼 클릭시, 해당 번호와 다음 번호 비교
+   * @param index
+   */
   const handleClick = (index) => {
+    const { size, max } = levelSet[level];
+
     // 다음 번호가 맞을 경우만 클릭가능
-    if (numlist[index] === nextNumber) {
+    if (firstList[index] === nextNumber) {
       const newClicked = [...clicked];
       newClicked[index] = true;
       setClicked(newClicked);
 
-      const updatedNumlist = [...numlist];
+      const updatedNumlist = [...firstList];
       // 클릭하면, 해당 Index에 두번째 세트(10~18) 로 변경
-      if (nextNumber < 18) {
-        updatedNumlist[index] = secondSet[nextNumber - 1];
+      if (nextNumber < max) {
+        updatedNumlist[index] = secondList[nextNumber - 1];
       }
 
-      if (nextNumber > 9) {
+      if (nextNumber > max / 2) {
         // 10 이상 클릭시, 해당 번호에 null 넣기
         updatedNumlist[index] = null;
       }
-      setNumlist(updatedNumlist);
+      setFirstList(updatedNumlist);
 
       if (nextNumber === 18) {
         alert("게임 종료!");
-        startTimer(false); // 타이머 종료
+        setTimer(false); // 타이머 종료
       } else {
         setNextNumber(nextNumber + 1);
       }
     }
   };
 
+  /**
+   * @description 현재 시간 포맷팅
+   */
+  const formatDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    const period = hours < 12 ? "오전" : "오후";
+    const formattedHours = hours % 12 || 12;
+
+    return `${year}. ${month}. ${day}. ${period} ${formattedHours}:${minutes}:${seconds}`;
+  };
+
+  /**
+   * @description 랭킹 저장
+   */
+  const saveRanking = () => {
+    const ranking = localStorage.getItem("ranking");
+    const rankingData = ranking ? JSON.parse(ranking) : [];
+
+    rankingData.push({ timestamp: formatDate(), level, time });
+    localStorage.setItem("ranking", JSON.stringify(rankingData));
+  };
+
+  /**
+   * @description 타이머 시작/종료
+   * @param state
+   */
+  const setTimer = (state) => {
+    setIsTimerRunning(state);
+    if (!state) {
+      // 타이머 종료 시
+      setTime(0);
+      setMenu("ranking");
+      saveRanking();
+    }
+  };
+
+  useEffect(() => {
+    let timer;
+    if (isTimerRunning) {
+      timer = setInterval(() => {
+        setTime((prevTime) => prevTime + 0.1);
+      }, 100);
+    }
+    return () => clearInterval(timer);
+  }, [isTimerRunning]);
+
   return (
     <GameWrap>
       <div>다음 숫자 : {nextNumber}</div>
       <GameBody>
-        {numlist.map((num, index) =>
+        {firstList.map((num, index) =>
           num === null ? (
             <Placeholder key={index}></Placeholder>
           ) : (
@@ -96,7 +172,7 @@ const Game = ({ startTimer }) => {
               onClick={() => {
                 handleClick(index);
                 if (nextNumber === 1) {
-                  startTimer(true);
+                  setTimer(true);
                 }
               }}
             >

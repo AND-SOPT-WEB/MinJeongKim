@@ -53,23 +53,40 @@ const Timer = styled.div`
   color: ${(props) => props.theme.colors.bright};
 `;
 
-const Header = ({ menu = "game", onChange, time = 0 }) => {
+const Header = ({ menu = "game", setMenu, setLevel, time = 0 }) => {
+  const onChangeMenu = (newMenu) => {
+    setMenu(newMenu);
+  };
+
+  const onChangeLevel = (newLevel) => {
+    setLevel(newLevel);
+  };
+
   return (
     <HeaderWrap>
       <HeaderGroup>
         <Title>1 to 50</Title>
-        <Button active={menu === "game"} onClick={() => onChange("game")}>
+        <Button active={menu === "game"} onClick={() => onChangeMenu("game")}>
           게임
         </Button>
-        <Button active={menu === "ranking"} onClick={() => onChange("ranking")}>
+        <Button
+          active={menu === "ranking"}
+          onClick={() => onChangeMenu("ranking")}
+        >
           랭킹
         </Button>
       </HeaderGroup>
       <HeaderGroup>
         <LevelSelect>
-          <option value="easy">Level 1</option>
-          <option value="normal">Level 2</option>
-          <option value="hard">Level 3</option>
+          <option value="level1" onClick={onChangeLevel}>
+            Level 1
+          </option>
+          <option value="level2" onClick={onChangeLevel}>
+            Level 2
+          </option>
+          <option value="level3" onClick={onChangeLevel}>
+            Level 3
+          </option>
         </LevelSelect>
         <Timer>{time}</Timer>
       </HeaderGroup>
