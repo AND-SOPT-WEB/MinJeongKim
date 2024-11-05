@@ -185,7 +185,7 @@ const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
               key={index}
               onClick={() => {
                 handleClick(index);
-                if (nextNumber === 1) {
+                if (num == 1 && nextNumber === 1) {
                   setTimer(true);
                 }
               }}
