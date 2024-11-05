@@ -18,13 +18,10 @@ function App() {
   };
 
   useEffect(() => {
-    let timer;
     if (isTimerRunning) {
-      timer = setInterval(() => {
-        setTime((prevTime) => prevTime + 0.01);
-      }, 10);
+      const timer = setInterval(() => setTime((prev) => prev + 0.01), 10);
+      return () => clearInterval(timer);
     }
-    return () => clearInterval(timer);
   }, [isTimerRunning]);
 
   return (
@@ -47,7 +44,7 @@ function App() {
       ) : (
         <Ranking setTimer={setTimer} />
       )}
-      <div id="modal-root"></div>
+      <div id="modal"></div>
     </>
   );
 }

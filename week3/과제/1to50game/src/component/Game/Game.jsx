@@ -12,7 +12,7 @@ const GameWrap = styled.div`
 const GameBody = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
-    `repeat(${levelSet[props.level].size}, 0.1fr)`};
+    `repeat(${levelSet[props.level].size}, 0fr)`};
   grid-gap: 1rem;
   align-content: center;
   justify-content: center;
@@ -73,33 +73,28 @@ const levelSet = {
 const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
   const { size, max } = levelSet[level];
   const [firstList, setFirstList] = useState([]);
-  const [secondList, setsecondList] = useState([]);
+  const [secondList, setSecondList] = useState([]);
   const [clicked, setClicked] = useState(Array(size * size).fill(false));
   const [nextNumber, setNextNumber] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   /**
-   * @description 레벨에 맞는 배열 2개 (앞면,뒷면) 생성
+   * @description 레벨에 맞는 배열 2개 (앞면,뒷면) 생성 + 섞기
    */
   const setArray = () => {
-    const array = Array.from({ length: size * size }, (_, index) => index + 1);
-    const arraySecond = Array.from(
-      { length: max - size * size },
-      (_, index) => index + size * size + 1,
-    );
-    shuffleArray(array);
-    shuffleArray(arraySecond);
-    setFirstList(array);
-    setsecondList(arraySecond);
-  };
+    const createShuffledArray = (start, end) =>
+      Array.from({ length: end - start + 1 }, (_, i) => i + start).sort(
+        () => Math.random() - 0.5,
+      );
 
-  const shuffleArray = (array) => {
-    return array.sort(() => Math.random() - 0.5);
+    setFirstList(createShuffledArray(1, size * size));
+    setSecondList(createShuffledArray(size * size + 1, max));
   };
 
   useEffect(() => {
     setArray();
     setNextNumber(1);
+    setClicked(Array(size * size).fill(false));
   }, [level]);
 
   /**
@@ -109,7 +104,7 @@ const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
     setArray();
     setTimer();
     setNextNumber(1);
-    setClicked(Array(levelSet[level].size * levelSet[level].size).fill(false));
+    setClicked(Array(size * size).fill(false));
   };
 
   /**
@@ -168,9 +163,7 @@ const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
    * @description 랭킹 저장
    */
   const saveRanking = () => {
-    const ranking = localStorage.getItem("ranking");
-    const rankingData = ranking ? JSON.parse(ranking) : [];
-
+    const rankingData = JSON.parse(localStorage.getItem("ranking") || []);
     rankingData.push({ timestamp: formatDate(), level, time: time.toFixed(2) });
     localStorage.setItem("ranking", JSON.stringify(rankingData));
   };
@@ -211,7 +204,7 @@ const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
               <button onClick={closeModal}>닫기</button>
             </ModalContent>
           </ModalOverlay>,
-          document.getElementById("modal-root"),
+          document.getElementById("modal"),
         )}
     </GameWrap>
   );
