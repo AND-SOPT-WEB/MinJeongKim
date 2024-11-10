@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import styled from "@emotion/styled";
+import { createShuffledArray } from "../../utils/useArray.js";
+import { levelSet, formatDate } from "../../utils/util.js";
 
 const GameWrap = styled.div`
   align-content: center;
@@ -64,12 +66,6 @@ const ModalContent = styled.div`
   height: 10rem;
 `;
 
-const levelSet = {
-  level1: { size: 3, max: 18 },
-  level2: { size: 4, max: 32 },
-  level3: { size: 5, max: 50 },
-};
-
 const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
   const { size, max } = levelSet[level];
   const [firstList, setFirstList] = useState([]);
@@ -82,11 +78,6 @@ const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
    * @description 레벨에 맞는 배열 2개 (앞면,뒷면) 생성 + 섞기
    */
   const setArray = () => {
-    const createShuffledArray = (start, end) =>
-      Array.from({ length: end - start + 1 }, (_, i) => i + start).sort(
-        () => Math.random() - 0.5,
-      );
-
     setFirstList(createShuffledArray(1, size * size));
     setSecondList(createShuffledArray(size * size + 1, max));
   };
@@ -139,24 +130,6 @@ const Game = ({ level = "level1", time, setTimer, setIsTimerRunning }) => {
         setNextNumber(nextNumber + 1);
       }
     }
-  };
-
-  /**
-   * @description 현재 시간 포맷팅
-   */
-  const formatDate = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    const hours = now.getHours();
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
-
-    const period = hours < 12 ? "오전" : "오후";
-    const formattedHours = hours % 12 || 12;
-
-    return `${year}. ${month}. ${day}. ${period} ${formattedHours}:${minutes}:${seconds}`;
   };
 
   /**
