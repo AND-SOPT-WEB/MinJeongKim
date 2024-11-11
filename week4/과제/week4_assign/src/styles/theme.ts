@@ -1,4 +1,6 @@
-const theme = {
+import '@emotion/react';
+
+export const theme = {
   colors: {
     primary: '#0070f3',
     secondary: '#ff4081',
@@ -16,4 +18,5 @@ const theme = {
   },
 };
 
+export type ThemeType = typeof theme;
 export default theme;

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const LoginPage = styled.div`
+const SignupPage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,8 +8,8 @@ const LoginPage = styled.div`
   height: 100vh;
 `;
 
-const Login = () => {
-  return <LoginPage></LoginPage>;
+const Signup = () => {
+  return <SignupPage></SignupPage>;
 };
 
-export default Login;
+export default Signup;
