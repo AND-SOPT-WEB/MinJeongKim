@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 
-interface props {
-  initParams: object;
-}
-
-export const useParams = ({ initParams }: props) => {
-  const [params, setParams] = useState(initParams);
+export const useParams = <T extends object>(initialValues: T) => {
+  const [params, setParams] = useState<T>(initialValues);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setParams({

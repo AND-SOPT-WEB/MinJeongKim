@@ -41,14 +41,27 @@ const PageLink = styled(Link)`
   color: ${({ theme }) => theme.colors.gray};
 `;
 
+interface paramTypes {
+  username: string;
+  password: string;
+  password_check: string;
+  hobby: string;
+}
+
+interface errorTypes {
+  nameError: string;
+  passwordError: string;
+  hobbyError: string;
+}
+
 const Signup = () => {
-  const { params, handleChange } = useParams({
+  const { params, handleChange } = useParams<paramTypes>({
     username: '',
     password: '',
     password_check: '',
     hobby: '',
   });
-  const [error, setError] = useState({
+  const [error, setError] = useState<errorTypes>({
     nameError: '',
     passwordError: '',
     hobbyError: '',
@@ -75,7 +88,9 @@ const Signup = () => {
           placeholder="이름"
           type="text"
         />
-        <Button onClick={handleName}>다음</Button>
+        <Button onClick={handleName} disabled={params.username === ''}>
+          다음
+        </Button>
         <ContentTitle>비밀번호</ContentTitle>
         <Input
           onChange={handleChange}

@@ -13,7 +13,7 @@ const StyledInput = styled.input`
 `;
 
 const Icon = styled.i`
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   color: gray;
   position: absolute;
   top: 50%;
@@ -22,11 +22,18 @@ const Icon = styled.i`
   cursor: pointer;
 `;
 
+const Error = styled.div`
+  font-size: 1.2rem;
+  color: red;
+  margin-top: 5px;
+`;
+
 interface props {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   placeholder: string;
   type: string;
+  error?: string;
 }
 
 /**
@@ -37,7 +44,7 @@ interface props {
  * @param type input 타입
  */
 
-const Input = ({ onChange, name, placeholder, type }: props) => {
+const Input = ({ onChange, name, placeholder, type, error }: props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -58,6 +65,7 @@ const Input = ({ onChange, name, placeholder, type }: props) => {
           className={`fa ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}
         />
       )}
+      {error && <Error>{error}</Error>}
     </InputWrap>
   );
 };

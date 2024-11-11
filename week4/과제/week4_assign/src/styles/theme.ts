@@ -25,7 +25,7 @@ export interface Theme extends EmotionTheme {
 export const theme: Theme = {
   colors: {
     primary: 'rgba(0,140,255,0.66)',
-    primary_dark: 'rgba(0,90,165,0.66)',
+    primary_dark: 'rgb(64,142,205)',
     secondary: '#ff9dbf',
     background: '#ecf4ff',
     text: '#333',
