@@ -1,9 +1,14 @@
 import styled from '@emotion/styled';
 import Button from '../../components/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/Input';
 import { useParams } from '../../hooks/useParams.ts';
 import { Link } from 'react-router-dom';
+import {
+  validateHobby,
+  validateName,
+  validatePassword,
+} from '../../utils/validation.ts';
 
 const SignupPage = styled.div`
   display: flex;
@@ -54,6 +59,16 @@ interface errorTypes {
   hobbyError: string;
 }
 
+interface stepType {
+  [key: string]: string;
+}
+
+export const stepList: stepType = {
+  name: '이름',
+  password: '비밀번호',
+  hobby: '취미',
+};
+
 const Signup = () => {
   const { params, handleChange } = useParams<paramTypes>({
     username: '',
@@ -66,12 +81,35 @@ const Signup = () => {
     passwordError: '',
     hobbyError: '',
   });
+  const [step, setStep] = useState('name');
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange(e);
+    const nameError = validateName(e.target.value);
+    setError((prev) => ({ ...prev, nameError }));
+  };
+  const handleHobbyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange(e);
+    const nameError = validateHobby(e.target.value);
+    setError((prev) => ({ ...prev, nameError }));
+  };
+
+  // 비밀번호 확인 유효성 검사만  useEffect로 처리
+  useEffect(() => {
+    const passwordError = validatePassword(
+      params.password,
+      params.password_check,
+    );
+    setError((prev) => ({ ...prev, passwordError }));
+  }, [params.password, params.password_check]);
 
   const handleName = () => {
     // 이름 입력 후
+    setStep('password');
   };
   const handlePassword = () => {
     // 비밀번호 입력 후
+    setStep('hobby');
   };
   const handleHobby = () => {
     // 취미 입력 후
@@ -81,38 +119,68 @@ const Signup = () => {
     <SignupPage>
       <SignupContainer>
         <PageTitle>회원가입</PageTitle>
-        <ContentTitle>이름</ContentTitle>
-        <Input
-          onChange={handleChange}
-          name="username"
-          placeholder="이름"
-          type="text"
-        />
-        <Button onClick={handleName} disabled={params.username === ''}>
-          다음
-        </Button>
-        <ContentTitle>비밀번호</ContentTitle>
-        <Input
-          onChange={handleChange}
-          name="password"
-          placeholder="비밀번호"
-          type="password"
-        />
-        <Input
-          onChange={handleChange}
-          name="password_check"
-          placeholder="비밀번호 확인"
-          type="password"
-        />
-        <Button onClick={handlePassword}>다음</Button>
-        <ContentTitle>취미</ContentTitle>
-        <Input
-          onChange={handleChange}
-          name="hobby"
-          placeholder="취미"
-          type="text"
-        />
-        <Button onClick={handleHobby}>다음</Button>
+        <ContentTitle>{stepList[step]}</ContentTitle>
+        {step === 'name' && (
+          <>
+            <Input
+              onChange={handleNameChange}
+              name="username"
+              placeholder="이름"
+              type="text"
+              error={error.nameError}
+            />
+            <Button
+              onClick={handleName}
+              disabled={params.username === '' || !!error.nameError}
+            >
+              다음
+            </Button>
+          </>
+        )}
+        {step === 'password' && (
+          <>
+            <Input
+              onChange={handleChange}
+              name="password"
+              placeholder="비밀번호"
+              type="password"
+            />
+            <Input
+              onChange={handleChange}
+              name="password_check"
+              placeholder="비밀번호 확인"
+              type="password"
+              error={error.passwordError}
+            />
+            <Button
+              onClick={handlePassword}
+              disabled={
+                params.password === '' ||
+                params.password_check === '' ||
+                !!error.passwordError
+              }
+            >
+              다음
+            </Button>
+          </>
+        )}
+        {step === 'hobby' && (
+          <>
+            <Input
+              onChange={handleHobbyChange}
+              name="hobby"
+              placeholder="취미"
+              type="text"
+              error={error.hobbyError}
+            />
+            <Button
+              onClick={handleHobby}
+              disabled={params.hobby === '' || !!error.hobbyError}
+            >
+              다음
+            </Button>
+          </>
+        )}
         <Subments>
           이미 회원이신가요? <PageLink to="/">로그인</PageLink>
         </Subments>

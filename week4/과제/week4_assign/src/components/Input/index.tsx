@@ -24,8 +24,8 @@ const Icon = styled.i`
 
 const Error = styled.div`
   font-size: 1.2rem;
-  color: red;
-  margin-top: 5px;
+  color: ${({ theme }) => theme.colors.red};
+  margin-top: 3px;
 `;
 
 interface props {

@@ -10,6 +10,7 @@ export interface Theme extends EmotionTheme {
     text: string;
     white: string;
     gray: string;
+    red: string;
   };
   spacing: {
     small: string;
@@ -31,6 +32,7 @@ export const theme: Theme = {
     text: '#333',
     white: '#fff',
     gray: '#666',
+    red: '#e30000',
   },
   spacing: {
     small: '8px',
