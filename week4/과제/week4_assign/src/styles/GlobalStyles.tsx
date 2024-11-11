@@ -4,6 +4,7 @@ import React from 'react';
 const GlobalStyles: React.FC = () => (
   <Global
     styles={css`
+      
       * {
         margin: 0;
         padding: 0;

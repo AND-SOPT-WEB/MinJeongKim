@@ -1,10 +1,25 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 
-const InputWrap = styled.input`
+const InputWrap = styled.div`
+  position: relative;
   width: 100%;
-  padding: 10px;
   margin: 5px 0;
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 10px 40px 10px 10px; /* 오른쪽 여백 추가 */
+`;
+
+const Icon = styled.i`
+  font-size: 1.6rem;
+  color: gray;
+  position: absolute;
+  top: 50%;
+  right: 1.2rem;
+  transform: translateY(-50%);
+  cursor: pointer;
 `;
 
 interface props {
@@ -23,13 +38,27 @@ interface props {
  */
 
 const Input = ({ onChange, name, placeholder, type }: props) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
   return (
-    <InputWrap
-      type={type}
-      placeholder={placeholder}
-      name={name}
-      onChange={onChange}
-    />
+    <InputWrap>
+      <StyledInput
+        type={showPassword && type === 'password' ? 'text' : type}
+        placeholder={placeholder}
+        name={name}
+        onChange={onChange}
+      />
+      {type === 'password' && (
+        <Icon
+          onClick={togglePasswordVisibility}
+          className={`fa ${showPassword ? 'fa-eye' : 'fa-eye-slash'}`}
+        />
+      )}
+    </InputWrap>
   );
 };
 
