@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { Link } from 'react-router-dom';
+import { PATH } from '../../routes/path.tsx';
 
 const LoginPage = styled.div`
   display: flex;
@@ -22,6 +24,13 @@ const LoginContainer = styled.div`
 const PageTitle = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
+`;
+
+const PageLink = styled(Link)`
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: ${({ theme }) => theme.colors.gray};
 `;
 
 const Login = () => {
@@ -58,6 +67,7 @@ const Login = () => {
           type="password"
         />
         <Button onClick={handleLogin}>로그인</Button>
+        <PageLink to={PATH.Signup}>회원가입</PageLink>
       </LoginContainer>
     </LoginPage>
   );

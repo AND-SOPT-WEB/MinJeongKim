@@ -1,6 +1,27 @@
-import '@emotion/react';
+import { Theme as EmotionTheme } from '@emotion/react';
 
-const theme = {
+export interface Themetype extends EmotionTheme {
+  colors: {
+    primary: string;
+    primary_dark: string;
+    secondary: string;
+    background: string;
+    text: string;
+    white: string;
+    gray: string;
+  };
+  spacing: {
+    small: string;
+    medium: string;
+    large: string;
+  };
+  fonts: {
+    body: string;
+    heading: string;
+  };
+}
+
+export const theme: Themetype = {
   colors: {
     primary: 'rgba(0,140,255,0.66)',
     primary_dark: 'rgba(0,90,165,0.66)',
@@ -8,6 +29,7 @@ const theme = {
     background: '#ecf4ff',
     text: '#333',
     white: '#fff',
+    gray: '#666',
   },
   spacing: {
     small: '8px',
@@ -20,5 +42,4 @@ const theme = {
   },
 };
 
-export type ThemeType = typeof theme;
 export default theme;
