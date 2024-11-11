@@ -14,6 +14,7 @@ const GlobalStyles: React.FC = () => (
         font-family: Arial, sans-serif;
         background-color: #ecf4ff;
       }
+        html { font-size:62.5%; },
     `}
   />
 );

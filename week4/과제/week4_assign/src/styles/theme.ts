@@ -1,6 +1,7 @@
+// theme.ts
 import { Theme as EmotionTheme } from '@emotion/react';
 
-export interface Themetype extends EmotionTheme {
+export interface Theme extends EmotionTheme {
   colors: {
     primary: string;
     primary_dark: string;
@@ -21,7 +22,7 @@ export interface Themetype extends EmotionTheme {
   };
 }
 
-export const theme: Themetype = {
+export const theme: Theme = {
   colors: {
     primary: 'rgba(0,140,255,0.66)',
     primary_dark: 'rgba(0,90,165,0.66)',

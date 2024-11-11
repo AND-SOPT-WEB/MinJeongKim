@@ -1,7 +1,7 @@
-// emotion.d.ts
-import '@emotion/styled';
-import { Themetype } from './styles/theme.ts';
+import '@emotion/react';
+import { ThemeType } from './styles/theme';
 
-declare module '@emotion/styled' {
-  export interface Theme extends Themetype {}
+declare module '@emotion/react' {
+  export interface Theme extends ThemeType {}
 }
+

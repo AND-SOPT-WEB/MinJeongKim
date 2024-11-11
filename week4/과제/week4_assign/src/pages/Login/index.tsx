@@ -4,6 +4,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../routes/path.tsx';
+import { useParams } from '../../hooks/useParams.ts';
 
 const LoginPage = styled.div`
   display: flex;
@@ -14,37 +15,31 @@ const LoginPage = styled.div`
 `;
 
 const LoginContainer = styled.div`
-  width: 300px;
-  padding: 20px;
+  width: 40rem;
+  padding: 4rem;
   border: 1px solid #ddd;
   border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.white};
 `;
 
 const PageTitle = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
 `;
 
 const PageLink = styled(Link)`
   display: block;
+  font-size: 1.5rem;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 1rem;
   color: ${({ theme }) => theme.colors.gray};
 `;
 
 const Login = () => {
-  const [params, setParams] = useState({
+  const { params, handleChange } = useParams({
     id: '',
     password: '',
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setParams({
-      ...params,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleLogin = () => {
     // 로그인 요청
