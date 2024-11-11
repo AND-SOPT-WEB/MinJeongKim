@@ -2,10 +2,11 @@ import '@emotion/react';
 
 export const theme = {
   colors: {
-    primary: '#0070f3',
-    secondary: '#ff4081',
-    background: '#f4f4f9',
+    primary: 'rgba(0,140,255,0.66)',
+    secondary: '#ff9dbf',
+    background: '#ecf4ff',
     text: '#333',
+    white: '#fff',
   },
   spacing: {
     small: '8px',
