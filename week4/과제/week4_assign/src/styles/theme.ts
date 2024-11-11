@@ -1,8 +1,9 @@
 import '@emotion/react';
 
-export const theme = {
+const theme = {
   colors: {
     primary: 'rgba(0,140,255,0.66)',
+    primary_dark: 'rgba(0,90,165,0.66)',
     secondary: '#ff9dbf',
     background: '#ecf4ff',
     text: '#333',

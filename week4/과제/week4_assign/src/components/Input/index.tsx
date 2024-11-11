@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const InputWrap = styled.input`
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 5px 0;
 `;
 
 interface props {

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const LoginPage = styled.div`
   display: flex;
@@ -36,6 +37,10 @@ const Login = () => {
     });
   };
 
+  const handleLogin = () => {
+    // 로그인 요청
+  };
+
   return (
     <LoginPage>
       <LoginContainer>
@@ -52,6 +57,7 @@ const Login = () => {
           placeholder="비밀번호"
           type="password"
         />
+        <Button onClick={handleLogin}>로그인</Button>
       </LoginContainer>
     </LoginPage>
   );
