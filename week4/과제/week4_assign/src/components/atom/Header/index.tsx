@@ -36,6 +36,7 @@ interface props {
 const Header = ({ onClick }: props) => {
   const onLogoutClick = () => {
     alert('로그아웃 되었습니다.');
+    localStorage.removeItem('accessToken');
   };
 
   return (
