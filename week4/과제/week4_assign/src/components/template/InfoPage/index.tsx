@@ -31,7 +31,7 @@ const ContentsTitle = styled.div`
 `;
 
 interface props {
-  params: { password: string; hobby: string };
+  params: { password?: string; hobby?: string };
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -73,7 +73,7 @@ const InfoPage = ({ params, onChange }: props) => {
         />
         <Button
           onClick={onSearchClick}
-          disabled={params.password === '' || params.hobby === ''}
+          disabled={params.password === '' && params.hobby === ''}
         >
           수정하기
         </Button>

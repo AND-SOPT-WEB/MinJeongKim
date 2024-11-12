@@ -15,16 +15,14 @@ const MypageWrap = styled.div`
 interface MypageProps {
   page: 'hobby' | 'info';
   no: string;
-  password: string;
-  hobby: string;
+  password?: string;
+  hobby?: string;
 }
 
 const Mypage = () => {
   const { params, handleEventChange, handleChange } = useParams<MypageProps>({
     page: 'hobby',
     no: '',
-    password: '',
-    hobby: '',
   });
 
   return (
