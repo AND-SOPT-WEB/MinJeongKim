@@ -7,6 +7,7 @@ import { PATH } from '../../routes/path.tsx';
 import { useParams } from '../../hooks/useParams.ts';
 
 const LoginPage = styled.div`
+  background-color: #ecf4ff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,7 +37,7 @@ const PageLink = styled(Link)`
 `;
 
 const Login = () => {
-  const { params, handleChange } = useParams({
+  const { params, handleEventChange } = useParams({
     id: '',
     password: '',
   });
@@ -50,13 +51,13 @@ const Login = () => {
       <LoginContainer>
         <PageTitle>로그인</PageTitle>
         <Input
-          onChange={handleChange}
+          onChange={handleEventChange}
           name="id"
           placeholder="아이디"
           type="text"
         />
         <Input
-          onChange={handleChange}
+          onChange={handleEventChange}
           name="password"
           placeholder="비밀번호"
           type="password"

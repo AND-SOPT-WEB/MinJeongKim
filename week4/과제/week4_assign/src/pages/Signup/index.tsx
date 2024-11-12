@@ -11,6 +11,7 @@ import {
 } from '../../utils/validation.ts';
 
 const SignupPage = styled.div`
+  background-color: #ecf4ff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +71,7 @@ export const stepList: stepType = {
 };
 
 const Signup = () => {
-  const { params, handleChange } = useParams<paramTypes>({
+  const { params, handleEventChange } = useParams<paramTypes>({
     username: '',
     password: '',
     password_check: '',
@@ -84,12 +85,12 @@ const Signup = () => {
   const [step, setStep] = useState('name');
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
+    handleEventChange(e);
     const nameError = validateName(e.target.value);
     setError((prev) => ({ ...prev, nameError }));
   };
   const handleHobbyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
+    handleEventChange(e);
     const nameError = validateHobby(e.target.value);
     setError((prev) => ({ ...prev, nameError }));
   };
@@ -140,13 +141,13 @@ const Signup = () => {
         {step === 'password' && (
           <>
             <Input
-              onChange={handleChange}
+              onChange={handleEventChange}
               name="password"
               placeholder="비밀번호"
               type="password"
             />
             <Input
-              onChange={handleChange}
+              onChange={handleEventChange}
               name="password_check"
               placeholder="비밀번호 확인"
               type="password"
