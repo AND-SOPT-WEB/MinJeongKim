@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Input from '../../atom/Input';
 import Button from '../../atom/Button';
+import axios from '../../../api/axios.ts';
+import { PATH_API } from '../../../api/path.ts';
 
 const MyPageWrap = styled.div`
   display: flex;
@@ -34,8 +36,20 @@ interface props {
 }
 
 const InfoPage = ({ params, onChange }: props) => {
+  // 수정하기 클릭 시 실행되는 함수
   const onSearchClick = () => {
-    // 수정하기 클릭 시 실행되는 함수
+    const updateParams = {
+      password: params.password,
+      hobby: params.hobby,
+    };
+    axios
+      .put(PATH_API.USER, updateParams)
+      .then((res) => {
+        alert('수정되었습니다.');
+      })
+      .catch((err) => {
+        alert('수정에 실패했습니다.');
+      });
   };
   return (
     <MyPageWrap>

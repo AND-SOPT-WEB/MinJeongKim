@@ -43,6 +43,8 @@ interface props {
 const HobbyPage = ({ params, onChange }: props) => {
   const [hobby, setHobby] = useState('');
   const [otherPeopleHobby, setOtherPeopleHobby] = useState('');
+
+  // 사용자의 취미
   const getHobby = () => {
     axios.get(PATH_API.MY_HOBBY).then((res) => {
       console.log(res.data);
@@ -54,9 +56,8 @@ const HobbyPage = ({ params, onChange }: props) => {
     getHobby();
   }, []);
 
+  // 검색 버튼 클릭 시 실행되는 함수
   const onSearchClick = () => {
-    // 검색 버튼 클릭 시 실행되는 함수
-
     axios.get(PATH_API.OTHER_HOBBY + `/${params.no}/hobby`, {}).then((res) => {
       setOtherPeopleHobby(res.data.result.hobby);
     });
