@@ -78,9 +78,7 @@ const HobbyPage = ({ params, onChange }: props) => {
           placeholder={'사용자 번호'}
           type={'number'}
         />
-        <Button onClick={onSearchClick} disabled={params.no === ''}>
-          검색
-        </Button>
+        <Button onClick={onSearchClick}>검색</Button>
         <Content>{otherPeopleHobby}</Content>
       </ContentsWrap>
     </MyPageWrap>

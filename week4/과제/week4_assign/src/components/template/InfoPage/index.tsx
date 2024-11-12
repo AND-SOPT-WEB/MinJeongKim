@@ -38,6 +38,10 @@ interface props {
 const InfoPage = ({ params, onChange }: props) => {
   // 수정하기 클릭 시 실행되는 함수
   const onSearchClick = () => {
+    if (!params.password || !params.hobby) {
+      alert('비밀번호와 취미를 입력해주세요.');
+      return;
+    }
     const updateParams = {
       password: params.password,
       hobby: params.hobby,
