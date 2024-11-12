@@ -5,6 +5,8 @@ import Button from '../../components/atom/Button';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../routes/path.tsx';
 import { useParams } from '../../hooks/useParams.ts';
+import axios from '../../api/axios.ts';
+import { PATH_API } from '../../api/path.ts';
 
 const LoginPage = styled.div`
   background-color: #ecf4ff;
@@ -38,12 +40,27 @@ const PageLink = styled(Link)`
 
 const Login = () => {
   const { params, handleEventChange } = useParams({
-    id: '',
+    username: '',
     password: '',
   });
 
   const handleLogin = () => {
     // 로그인 요청
+    axios
+      .post(PATH_API.LOGIN, params)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.result) {
+          const token = res.data.result.token;
+          localStorage.setItem('accessToken', token);
+          alert('로그인 성공');
+        } else if (res.data.code) {
+          alert('로그인 실패');
+        }
+      })
+      .catch((err) => {
+        alert(`로그인 실패 ${err}`);
+      });
   };
 
   return (
@@ -52,7 +69,7 @@ const Login = () => {
         <PageTitle>로그인</PageTitle>
         <Input
           onChange={handleEventChange}
-          name="id"
+          name="username"
           placeholder="아이디"
           type="text"
         />
@@ -62,7 +79,12 @@ const Login = () => {
           placeholder="비밀번호"
           type="password"
         />
-        <Button onClick={handleLogin}>로그인</Button>
+        <Button
+          onClick={handleLogin}
+          disabled={params.username === '' || params.password === ''}
+        >
+          로그인
+        </Button>
         <PageLink to={PATH.Signup}>회원가입</PageLink>
       </LoginContainer>
     </LoginPage>

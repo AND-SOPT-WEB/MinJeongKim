@@ -1,5 +1,5 @@
 export const PATH_API = {
-  API_DOMAIN = 'http://211.188.53.75:8080',
+  API_DOMAIN: 'http://211.188.53.75:8080',
 
   // 유저 등록(POST), 유저 정보 변경(Put)
   USER: '/user',
