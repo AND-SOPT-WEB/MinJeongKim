@@ -102,7 +102,7 @@ const Signup = () => {
 
   // 비밀번호 확인 유효성 검사만  useEffect로 처리
   useEffect(() => {
-    const passwordError = validatePassword(
+    const passwordError = validatePaqlalssword(
       params.password,
       params.password_check,
     );
@@ -110,11 +110,9 @@ const Signup = () => {
   }, [params.password, params.password_check]);
 
   const handleName = () => {
-    // 이름 입력 후
     setStep('password');
   };
   const handlePassword = () => {
-    // 비밀번호 입력 후
     setStep('hobby');
   };
   const handleHobby = () => {
