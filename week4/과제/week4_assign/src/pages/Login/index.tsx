@@ -52,23 +52,16 @@ const Login = () => {
     }
   }, []);
 
-  const handleLogin = () => {
-    // 로그인 요청
-    axios
-      .post(PATH_API.LOGIN, params)
-      .then((res) => {
-        if (res.data.result) {
-          localStorage.setItem('accessToken', res.data.result.token);
-          alert('로그인 성공');
-          console.log(res.data.result.token);
-          navigate(PATH.Mypage);
-        } else if (res.data.code) {
-          alert('로그인 실패');
-        }
-      })
-      .catch((err) => {
-        alert(`로그인 실패 ${err}`);
-      });
+  const handleLogin = async () => {
+    try {
+      // 로그인 요청
+      const res = await axios.post(PATH_API.LOGIN, params);
+      localStorage.setItem('accessToken', res.data.result.token);
+      alert('로그인 성공');
+      navigate(PATH.Mypage);
+    } catch (err) {
+      alert(`로그인 실패 ${err}`);
+    }
   };
 
   return (

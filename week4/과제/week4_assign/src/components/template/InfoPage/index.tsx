@@ -37,8 +37,8 @@ interface props {
 
 const InfoPage = ({ params, onChange }: props) => {
   // 수정하기 클릭 시 실행되는 함수
-  const onSearchClick = () => {
-    if (!params.password || !params.hobby) {
+  const onSearchClick = async () => {
+    if (!params.password && !params.hobby) {
       alert('비밀번호와 취미를 입력해주세요.');
       return;
     }
@@ -46,15 +46,14 @@ const InfoPage = ({ params, onChange }: props) => {
       password: params.password,
       hobby: params.hobby,
     };
-    axios
-      .put(PATH_API.USER, updateParams)
-      .then((res) => {
-        alert('수정되었습니다.');
-      })
-      .catch((err) => {
-        alert('수정에 실패했습니다.');
-      });
+    try {
+      const res = await axios.put(PATH_API.USER, updateParams);
+      alert('수정되었습니다.');
+    } catch (err) {
+      alert('수정에 실패했습니다.');
+    }
   };
+
   return (
     <MyPageWrap>
       <PageTitle>내 정보 수정하기</PageTitle>

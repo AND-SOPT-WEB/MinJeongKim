@@ -45,11 +45,13 @@ const HobbyPage = ({ params, onChange }: props) => {
   const [otherPeopleHobby, setOtherPeopleHobby] = useState('');
 
   // 사용자의 취미
-  const getHobby = () => {
-    axios.get(PATH_API.MY_HOBBY).then((res) => {
-      console.log(res.data);
+  const getHobby = async () => {
+    try {
+      const res = await axios.get(PATH_API.MY_HOBBY);
       setHobby(res.data.result.hobby);
-    });
+    } catch (error) {
+      console.error('Failed to fetch hobby:', error);
+    }
   };
 
   useEffect(() => {
@@ -57,19 +59,17 @@ const HobbyPage = ({ params, onChange }: props) => {
   }, []);
 
   // 검색 버튼 클릭 시 실행되는 함수
-  const onSearchClick = () => {
+  const onSearchClick = async () => {
     if (!params.no) {
       alert('사용자 번호를 입력해주세요.');
       return;
     }
-    axios
-      .get(PATH_API.OTHER_HOBBY + `/${params.no}/hobby`)
-      .then((res) => {
-        setOtherPeopleHobby(res.data.result.hobby);
-      })
-      .catch(() => {
-        alert('검색 오류입니다');
-      });
+    try {
+      const res = await axios.get(`${PATH_API.OTHER_HOBBY}/${params.no}/hobby`);
+      setOtherPeopleHobby(res.data.result.hobby);
+    } catch (error) {
+      alert('검색 오류입니다');
+    }
   };
 
   return (

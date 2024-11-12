@@ -113,22 +113,19 @@ const Signup = () => {
     setStep(step);
   };
 
-  const handleHobby = () => {
+  const handleHobby = async () => {
     const requestParams = {
       username: params.username,
       password: params.password,
       hobby: params.hobby,
     };
-    // 취미 입력 후
-    axios
-      .post(PATH_API.USER, requestParams)
-      .then((res) => {
-        alert(`회원가입 성공, 회원번호 : ${res.data.result.no}`);
-        navigate(PATH.Login);
-      })
-      .catch((err) => {
-        alert(`회원가입 실패 ${err}`);
-      });
+    try {
+      const res = await axios.post(PATH_API.USER, requestParams);
+      alert(`회원가입 성공, 회원번호 : ${res.data.result.no}`);
+      navigate(PATH.Login);
+    } catch (err) {
+      alert(`회원가입 실패 ${err}`);
+    }
   };
 
   return (
