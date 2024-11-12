@@ -9,6 +9,10 @@ import {
   validateName,
   validatePassword,
 } from '../../utils/validation.ts';
+import axios from '../../api/axios.ts';
+import { PATH_API } from '../../api/path.ts';
+import { useNavigate } from 'react-router-dom';
+import { PATH } from '../../routes/path.tsx';
 
 const SignupPage = styled.div`
   background-color: #ecf4ff;
@@ -83,6 +87,7 @@ const Signup = () => {
     hobbyError: '',
   });
   const [step, setStep] = useState('name');
+  const navigate = useNavigate();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleEventChange(e);
@@ -113,7 +118,28 @@ const Signup = () => {
     setStep('hobby');
   };
   const handleHobby = () => {
+    const requestParams = {
+      username: params.username,
+      password: params.password,
+      hobby: params.hobby,
+    };
     // 취미 입력 후
+    axios
+      .post(PATH_API.USER, requestParams)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.result) {
+          const token = res.data.result.token;
+          localStorage.setItem('accessToken', token);
+          alert('회원가입 성공');
+          navigate(PATH.Login);
+        } else if (res.data.code) {
+          alert('회원가입 실패');
+        }
+      })
+      .catch((err) => {
+        alert(`회원가입 실패 ${err}`);
+      });
   };
 
   return (

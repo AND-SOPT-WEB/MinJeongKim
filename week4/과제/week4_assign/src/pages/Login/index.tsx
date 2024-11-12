@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/atom/Input';
 import Button from '../../components/atom/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { PATH } from '../../routes/path.tsx';
 import { useParams } from '../../hooks/useParams.ts';
 import axios from '../../api/axios.ts';
@@ -39,10 +39,19 @@ const PageLink = styled(Link)`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
   const { params, handleEventChange } = useParams({
     username: '',
     password: '',
   });
+
+  const token = localStorage.getItem('accessToken');
+
+  useEffect(() => {
+    if (token) {
+      navigate(PATH.Mypage);
+    }
+  }, []);
 
   const handleLogin = () => {
     // 로그인 요청
@@ -54,6 +63,7 @@ const Login = () => {
           const token = res.data.result.token;
           localStorage.setItem('accessToken', token);
           alert('로그인 성공');
+          navigate(PATH.Mypage);
         } else if (res.data.code) {
           alert('로그인 실패');
         }
