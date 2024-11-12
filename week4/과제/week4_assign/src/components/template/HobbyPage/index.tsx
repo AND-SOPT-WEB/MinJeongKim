@@ -58,9 +58,18 @@ const HobbyPage = ({ params, onChange }: props) => {
 
   // 검색 버튼 클릭 시 실행되는 함수
   const onSearchClick = () => {
-    axios.get(PATH_API.OTHER_HOBBY + `/${params.no}/hobby`, {}).then((res) => {
-      setOtherPeopleHobby(res.data.result.hobby);
-    });
+    if (!params.no) {
+      alert('사용자 번호를 입력해주세요.');
+      return;
+    }
+    axios
+      .get(PATH_API.OTHER_HOBBY + `/${params.no}/hobby`)
+      .then((res) => {
+        setOtherPeopleHobby(res.data.result.hobby);
+      })
+      .catch(() => {
+        alert('검색 오류입니다');
+      });
   };
 
   return (
