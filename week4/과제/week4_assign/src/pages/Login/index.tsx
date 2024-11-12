@@ -45,24 +45,22 @@ const Login = () => {
     password: '',
   });
 
-  const token = localStorage.getItem('accessToken');
-
   useEffect(() => {
+    const token = localStorage.getItem('accessToken');
     if (token) {
       navigate(PATH.Mypage);
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = () => {
     // 로그인 요청
     axios
       .post(PATH_API.LOGIN, params)
       .then((res) => {
-        console.log(res.data);
         if (res.data.result) {
-          const token = res.data.result.token;
-          localStorage.setItem('accessToken', token);
+          localStorage.setItem('accessToken', res.data.result.token);
           alert('로그인 성공');
+          console.log(res.data.result.token);
           navigate(PATH.Mypage);
         } else if (res.data.code) {
           alert('로그인 실패');

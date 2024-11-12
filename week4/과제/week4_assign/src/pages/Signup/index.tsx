@@ -127,7 +127,6 @@ const Signup = () => {
     axios
       .post(PATH_API.USER, requestParams)
       .then((res) => {
-        console.log(res.data);
         if (res.data.result) {
           const token = res.data.result.token;
           localStorage.setItem('accessToken', token);

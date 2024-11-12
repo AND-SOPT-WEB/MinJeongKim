@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import Input from '../../atom/Input';
 import Button from '../../atom/Button';
+import axios from '../../../api/axios.ts';
+import { PATH_API } from '../../../api/path.ts';
 
 const MyPageWrap = styled.div`
   display: flex;
@@ -39,6 +41,18 @@ interface props {
 }
 
 const HobbyPage = ({ params, onChange }: props) => {
+  const [hobby, setHobby] = useState('');
+  const getHobby = () => {
+    axios.get(PATH_API.MY_HOBBY).then((res) => {
+      console.log(res.data);
+      setHobby(res.data.result.hobby);
+    });
+  };
+
+  useEffect(() => {
+    getHobby();
+  }, []);
+
   const onSearchClick = () => {
     // 검색 버튼 클릭 시 실행되는 함수
   };
@@ -47,7 +61,7 @@ const HobbyPage = ({ params, onChange }: props) => {
       <PageTitle>취미</PageTitle>
       <ContentsWrap>
         <ContentsTitle>취미</ContentsTitle>
-        <Content>취미가 뭔지 여기에 써</Content>
+        <Content>{hobby}</Content>
       </ContentsWrap>
       <ContentsWrap>
         <ContentsTitle>다른 사람들의 취미</ContentsTitle>

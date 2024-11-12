@@ -14,7 +14,7 @@ api.interceptors.request.use(
     // 요청 전 처리
     const token = localStorage.getItem('accessToken');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.token = `${token}`;
     }
     return config;
   },
@@ -27,7 +27,7 @@ api.interceptors.response.use(
     // 오류 응답 처리
     if (error.response && error.response.status === 401) {
       // 인증 오류 처리
-      localStorage.removeItem('accessToken');
+      // localStorage.removeItem('accessToken');
     }
     return Promise.reject(error);
   },
