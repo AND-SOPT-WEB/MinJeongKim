@@ -96,25 +96,23 @@ const Signup = () => {
   };
   const handleHobbyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleEventChange(e);
-    const nameError = validateHobby(e.target.value);
-    setError((prev) => ({ ...prev, nameError }));
+    const hobbyError = validateHobby(e.target.value);
+    setError((prev) => ({ ...prev, hobbyError }));
   };
 
   // 비밀번호 확인 유효성 검사만  useEffect로 처리
   useEffect(() => {
-    const passwordError = validatePaqlalssword(
+    const passwordError = validatePassword(
       params.password,
       params.password_check,
     );
     setError((prev) => ({ ...prev, passwordError }));
   }, [params.password, params.password_check]);
 
-  const handleName = () => {
-    setStep('password');
+  const handleNextStep = (step: 'name' | 'password' | 'hobby') => {
+    setStep(step);
   };
-  const handlePassword = () => {
-    setStep('hobby');
-  };
+
   const handleHobby = () => {
     const requestParams = {
       username: params.username,
@@ -148,7 +146,7 @@ const Signup = () => {
               error={error.nameError}
             />
             <Button
-              onClick={handleName}
+              onClick={() => handleNextStep('password')}
               disabled={params.username === '' || !!error.nameError}
             >
               다음
@@ -171,7 +169,7 @@ const Signup = () => {
               error={error.passwordError}
             />
             <Button
-              onClick={handlePassword}
+              onClick={() => handleNextStep('hobby')}
               disabled={
                 params.password === '' ||
                 params.password_check === '' ||

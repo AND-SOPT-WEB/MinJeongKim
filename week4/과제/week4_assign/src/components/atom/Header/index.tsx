@@ -1,5 +1,3 @@
-import React, { useState } from 'react';
-
 import styled from '@emotion/styled';
 import { PATH } from '../../../routes/path.tsx';
 import { useNavigate } from 'react-router-dom';

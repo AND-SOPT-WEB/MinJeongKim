@@ -50,7 +50,7 @@ const Login = () => {
     if (token) {
       navigate(PATH.Mypage);
     }
-  }, [navigate]);
+  }, []);
 
   const handleLogin = () => {
     // 로그인 요청
