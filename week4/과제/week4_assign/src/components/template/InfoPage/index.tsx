@@ -28,41 +28,44 @@ const ContentsTitle = styled.div`
   font-weight: bold;
 `;
 
-const Content = styled.div`
-  padding: 1rem;
-  font-size: 1.2rem;
-`;
-
 interface props {
-  params: { no: string };
+  params: { password: string; hobby: string };
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const HobbyPage = ({ params, onChange }: props) => {
+const InfoPage = ({ params, onChange }: props) => {
   const onSearchClick = () => {
-    // 검색 버튼 클릭 시 실행되는 함수
+    // 수정하기 클릭 시 실행되는 함수
   };
   return (
     <MyPageWrap>
-      <PageTitle>취미</PageTitle>
+      <PageTitle>내 정보 수정하기</PageTitle>
       <ContentsWrap>
-        <ContentsTitle>취미</ContentsTitle>
-        <Content>취미가 뭔지 여기에 써</Content>
-      </ContentsWrap>
-      <ContentsWrap>
-        <ContentsTitle>다른 사람들의 취미</ContentsTitle>
+        <ContentsTitle>새 비밀번호</ContentsTitle>
         <Input
           onChange={onChange}
-          name="no"
-          placeholder={'사용자 번호'}
-          type={'number'}
+          name="password"
+          placeholder={'새 비밀번호'}
+          type={'text'}
         />
-        <Button onClick={onSearchClick} disabled={params.no === ''}>
-          검색
+      </ContentsWrap>
+      <ContentsWrap>
+        <ContentsTitle>새 취미</ContentsTitle>
+        <Input
+          onChange={onChange}
+          name="hobby"
+          placeholder={'새 취미'}
+          type={'text'}
+        />
+        <Button
+          onClick={onSearchClick}
+          disabled={params.password === '' || params.hobby === ''}
+        >
+          수정하기
         </Button>
       </ContentsWrap>
     </MyPageWrap>
   );
 };
 
-export default HobbyPage;
+export default InfoPage;

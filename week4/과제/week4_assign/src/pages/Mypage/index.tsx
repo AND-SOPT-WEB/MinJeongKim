@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Header from '../../components/atom/Header';
 import { useParams } from '../../hooks/useParams.ts';
 import HobbyPage from '../../components/template/HobbyPage';
+import InfoPage from '../../components/template/InfoPage';
 
 const MypageWrap = styled.div`
   display: flex;
@@ -14,12 +15,16 @@ const MypageWrap = styled.div`
 interface MypageProps {
   page: 'hobby' | 'info';
   no: string;
+  password: string;
+  hobby: string;
 }
 
 const Mypage = () => {
   const { params, handleEventChange, handleChange } = useParams<MypageProps>({
     page: 'hobby',
     no: '',
+    password: '',
+    hobby: '',
   });
 
   return (
@@ -29,7 +34,7 @@ const Mypage = () => {
         {params.page === 'hobby' ? (
           <HobbyPage onChange={handleEventChange} params={params} />
         ) : (
-          <div>내 정보 페이지</div>
+          <InfoPage onChange={handleEventChange} params={params} />
         )}
       </MypageWrap>
     </>
