@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
+import { PATH } from '../../../routes/path.tsx';
+import { useNavigate } from 'react-router-dom';
 
 const HeaderWrap = styled.div`
   display: flex;
@@ -34,9 +36,11 @@ interface props {
 }
 
 const Header = ({ onClick }: props) => {
+  const navigate = useNavigate();
   const onLogoutClick = () => {
     alert('로그아웃 되었습니다.');
     localStorage.removeItem('accessToken');
+    navigate(PATH.Login);
   };
 
   return (

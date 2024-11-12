@@ -127,14 +127,8 @@ const Signup = () => {
     axios
       .post(PATH_API.USER, requestParams)
       .then((res) => {
-        if (res.data.result) {
-          const token = res.data.result.token;
-          localStorage.setItem('accessToken', token);
-          alert('회원가입 성공');
-          navigate(PATH.Login);
-        } else if (res.data.code) {
-          alert('회원가입 실패');
-        }
+        alert(`회원가입 성공, 회원번호 : ${res.data.result.no}`);
+        navigate(PATH.Login);
       })
       .catch((err) => {
         alert(`회원가입 실패 ${err}`);
