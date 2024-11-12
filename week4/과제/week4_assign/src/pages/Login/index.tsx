@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Input from '../../components/atom/Input';
+import Button from '../../components/atom/Button';
 import { Link } from 'react-router-dom';
 import { PATH } from '../../routes/path.tsx';
 import { useParams } from '../../hooks/useParams.ts';
