@@ -5,8 +5,8 @@ import Button from '../../components/atom/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { PATH } from '../../routes/path.tsx';
 import { useParams } from '../../hooks/useParams.ts';
-import axios from '../../api/axios.ts';
 import { PATH_API } from '../../api/path.ts';
+import api from '../../api/axios.ts';
 
 const LoginPage = styled.div`
   background-color: #ecf4ff;
@@ -55,7 +55,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       // 로그인 요청
-      const res = await axios.post(PATH_API.LOGIN, params);
+      const res = await api.post(PATH_API.LOGIN, params);
       localStorage.setItem('accessToken', res.data.result.token);
       alert('로그인 성공');
       navigate(PATH.Mypage);

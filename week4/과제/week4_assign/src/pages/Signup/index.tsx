@@ -13,6 +13,7 @@ import axios from '../../api/axios.ts';
 import { PATH_API } from '../../api/path.ts';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '../../routes/path.tsx';
+import api from '../../api/axios.ts';
 
 const SignupPage = styled.div`
   background-color: #ecf4ff;
@@ -120,7 +121,7 @@ const Signup = () => {
       hobby: params.hobby,
     };
     try {
-      const res = await axios.post(PATH_API.USER, requestParams);
+      const res = await api.post(PATH_API.USER, requestParams);
       alert(`회원가입 성공, 회원번호 : ${res.data.result.no}`);
       navigate(PATH.Login);
     } catch (err) {
